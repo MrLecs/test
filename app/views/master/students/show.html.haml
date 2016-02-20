@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Surname:
+  = @student.surname
+%p
+  %b Name:
+  = @student.name
+%p
+  %b Patronymic:
+  = @student.patronymic
+%p
+  %b Group:
+  = @student.group_id
+
+= link_to 'Edit', edit_master_student_path(@student)
+\|
+= link_to 'Back', master_students_path
