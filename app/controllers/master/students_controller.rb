@@ -1,4 +1,4 @@
-class Master::StudentsController < ApplicationController
+class Master::StudentsController < MasterController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
   # GET /students
