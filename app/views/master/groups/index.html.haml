@@ -1,10 +1,13 @@
-%h1 Listing groups
+%h1 Список групп
 
-%table
+= link_to new_master_group_path, class: 'btn btn-xs btn-success' do
+  Добавить группу
+
+%table.table
   %thead
     %tr
-      %th Name
-      %th
+      %th Номер группы
+      %th Количество студентов
       %th
       %th
 
@@ -12,10 +15,6 @@
     - @groups.each do |group|
       %tr
         %td= group.name
-        %td= link_to 'Show', group
-        %td= link_to 'Edit', edit_group_path(group)
-        %td= link_to 'Destroy', group, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Group', new_group_path
+        %td= group.students.size
+        %td= link_to 'Редактировать', edit_master_group_path(group), class: 'btn btn-success btn-xs'
+        %td= link_to 'Удалить', [:master, group], :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-primary btn-xs'

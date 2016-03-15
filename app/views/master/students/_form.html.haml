@@ -10,7 +10,7 @@
   = f.input :name
   = f.input :patronymic
 
-  = f.input :group_id
+  = f.association :group, collection: Group.all.order(:name), prompt: 'Выберите группу'
 
   .actions
     = f.button :submit

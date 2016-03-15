@@ -1,27 +1,30 @@
-%h1 Listing students
+%h1 Список студентов
 
-%table
+= link_to new_master_student_path, class: 'btn btn-success btn-xs' do
+  Добавить студента
+
+%table.table
   %thead
     %tr
-      %th Surname
-      %th Name
-      %th Patronymic
-      %th Group
-      %th
+      %th ФИО
+      %th Группа
+
       %th
       %th
 
   %tbody
     - @students.each do |student|
       %tr
-        %td= student.surname
-        %td= student.name
-        %td= student.patronymic
-        %td= student.group_id
-        %td= link_to 'Show', [:master, student]
-        %td= link_to 'Edit', edit_master_student_path(student)
-        %td= link_to 'Destroy', [:master, student], :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td
+          = student.surname
+          = student.name
+          = student.patronymic
+        %td
+          = student.group.name rescue '-'
+
+        %td= link_to 'Редактировать', edit_master_student_path(student), class: 'btn btn-success btn-xs'
+        %td= link_to 'Удалить', [:master, student], :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-primary btn-xs'
 
 %br
 
-= link_to 'New Student', new_master_student_path
+

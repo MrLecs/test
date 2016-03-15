@@ -1,3 +1,7 @@
 /**
  *= require bootstrap.min
  */
+
+body {
+  padding-top: 50px;
+}

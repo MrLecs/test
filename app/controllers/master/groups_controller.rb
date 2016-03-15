@@ -1,4 +1,4 @@
-class Master::GroupsController < ApplicationController
+class Master::GroupsController < MasterController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
 
   # GET /groups
@@ -28,7 +28,7 @@ class Master::GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to @group, notice: 'Group was successfully created.' }
+        format.html { redirect_to master_groups_path, notice: 'Group was successfully created.' }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class Master::GroupsController < ApplicationController
   def update
     respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+        format.html { redirect_to master_groups_path, notice: 'Group was successfully updated.' }
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit }

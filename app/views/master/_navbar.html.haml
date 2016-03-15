@@ -1,0 +1,15 @@
+.navbar.navbar-default.navbar-fixed-top
+  .container
+    .navbar-header
+      %a.navbar-brand{ :href => "/master" } Система тестирования
+      %button.navbar-toggle{"data-target" => "#navbar-main", "data-toggle" => "collapse", :type => "button"}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+    #navbar-main.navbar-collapse.collapse
+      %ul.nav.navbar-nav
+        %li{ class: controller_name == 'groups' ? 'active' : '' }
+          %a{ href: master_groups_path } Группы 
+      
+        %li{ class: controller_name == 'students' ? 'active' : '' }
+          %a{ href: master_students_path } Студенты
