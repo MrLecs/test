@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  testing_id: 
+  content: MyText
+  timeout: 1
+  mark: 1
+
+two:
+  testing_id: 
+  content: MyText
+  timeout: 1
+  mark: 1

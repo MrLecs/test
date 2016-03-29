@@ -1,0 +1,10 @@
+= simple_form_for([:master, @answer]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :question, label_method: :content
+    = f.input :content
+    = f.input :correct
+
+  .form-actions
+    = f.button :submit

@@ -11,13 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160220215542) do
+ActiveRecord::Schema.define(version: 20160325074131) do
+
+  create_table "answers", force: :cascade do |t|
+    t.integer  "question_id"
+    t.text     "content"
+    t.boolean  "correct",     default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id"
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "questions", force: :cascade do |t|
+    t.integer  "testing_id"
+    t.text     "content"
+    t.integer  "timeout"
+    t.integer  "mark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "questions", ["testing_id"], name: "index_questions_on_testing_id"
 
   create_table "students", force: :cascade do |t|
     t.string   "surname"
@@ -26,6 +47,13 @@ ActiveRecord::Schema.define(version: 20160220215542) do
     t.integer  "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "testings", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end

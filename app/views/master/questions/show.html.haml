@@ -1,0 +1,11 @@
+.page-header
+  %h1= @question.testing.title
+
+%p#notice= notice
+
+%p
+  = @question.content
+  
+%ul
+  - @question.answers.each do |answer|
+    %li= answer.content 

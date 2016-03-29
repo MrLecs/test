@@ -1,0 +1,38 @@
+.page-header
+  %h1 
+    Список вопросов к тесту: 
+    = @testing.title
+    
+= link_to new_master_question_path, class: 'btn btn-xs btn-primary' do
+  %i.fa.fa-plus
+  Добавить вопрос
+    
+%table.table
+  %thead
+    %tr
+      %th Вопрос
+      %th Оценка
+      %th Время на ответ
+      %th Кол-во ответов
+      %th
+      %th
+
+  %tbody
+    - @testing.questions.each do |question|
+      %tr
+        %td
+          = link_to edit_master_question_path(question) do
+            %i.fa.fa-pencil
+            = question.content
+        %td= question.mark
+        %td= question.timeout
+        %td= question.answers.size
+        %td
+          = link_to new_master_answer_path(question_id: question.id), class: 'btn btn-xs btn-success' do
+            %i.fa.fa-plus
+            Добавить ответ
+        %td
+          = link_to master_question_path(question), class: 'btn btn-xs btn-warning', target: '_blank' do
+            %i.fa.fa-eye
+            Предпросмотр
+            
