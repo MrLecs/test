@@ -1,0 +1,13 @@
+ru:
+  simple_form:
+    labels:
+      question:
+        testing: 'Тест'
+        content: 'Вопрос'
+        timeout: 'Время на ответ'
+        mark: 'Оценка'
+  helpers:
+    submit:
+     create: "Создать %{model}"
+     submit: "Сохранить %{model}"
+     update: "Обновить %{model}"
