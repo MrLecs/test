@@ -56,7 +56,7 @@ class Master::GroupsController < MasterController
   def destroy
     @group.destroy
     respond_to do |format|
-      format.html { redirect_to groups_url, notice: 'Group was successfully destroyed.' }
+      format.html { redirect_to master_groups_path, notice: 'Group was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
