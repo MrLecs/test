@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  root to: 'students#testing'
+
+  devise_for :students,
+             :controllers => { :registrations => "devise/custom/registrations" }
+               
+
   namespace :master do
     root to: 'groups#index'
     

@@ -4,7 +4,7 @@ class Master::StudentsController < MasterController
   # GET /students
   # GET /students.json
   def index
-    @students = Student.all
+    @students = Student.all.order(:surname, :name)
   end
 
   # GET /students/1

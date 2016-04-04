@@ -7,8 +7,10 @@
 %table.table
   %thead
     %tr
+      %th Дата регистрации
       %th ФИО
       %th Группа
+      %th Дата последнего входа
 
       %th
       %th
@@ -17,11 +19,15 @@
     - @students.each do |student|
       %tr
         %td
+          = l student.created_at, format: :long
+        %td
           = student.surname
           = student.name
           = student.patronymic
         %td
           = student.group.name rescue '-'
+        %td
+          = l student.last_sign_in_at, format: :long rescue '-'
 
         %td= link_to 'Редактировать', edit_master_student_path(student), class: 'btn btn-success btn-xs'
         %td= link_to 'Удалить', [:master, student], :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-primary btn-xs'
