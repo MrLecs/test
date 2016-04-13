@@ -6,8 +6,9 @@ ru:
         content: 'Вопрос'
         timeout: 'Время на ответ'
         mark: 'Оценка'
+        answers: 'Ответы'
   helpers:
     submit:
-     create: "Создать %{model}"
-     submit: "Сохранить %{model}"
-     update: "Обновить %{model}"
+     create: "Создать"
+     submit: "Сохранить"
+     update: "Обновить"

@@ -3,9 +3,21 @@
 
 %p#notice= notice
 
-%p
-  = @question.content
-  
-%ul
+%blockquote
+  %p
+    = @question.content
+
+%form
   - @question.answers.each do |answer|
-    %li= answer.content 
+    - if answer.content.to_s != ''
+      .checkbox
+        %label
+          %input{ type: :checkbox }
+          - if answer.correct
+            %p.text-success= answer.content
+          - else
+            %s= answer.content
+
+%hr
+
+= link_to 'Назад', :back, class: 'btn btn-default'

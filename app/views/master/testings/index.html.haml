@@ -16,17 +16,16 @@
     - @testings.each do |testing|
       %tr
         %td
-          = link_to edit_master_testing_path(testing) do
-            %i.fa.fa-pencil
+          = link_to questions_master_testing_path(testing) do
             = testing.title
         %td
           = testing.description
         %td
-          = link_to questions_master_testing_path(testing), class: 'btn btn-success btn-xs' do
-            %i.fa.fa-question-circle
-            Вопросы
+          = link_to edit_master_testing_path(testing), class: 'btn btn-success btn-xs' do
+            %i.fa.fa-pencil
+            Редактировать
         %td
-          = link_to [:master, testing], :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-primary btn-xs' do
+          = link_to [:master, testing], :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-xs' do
             %i.fa.fa-trash
             Удалить
 

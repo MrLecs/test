@@ -6,6 +6,25 @@
     = f.input :content
     = f.input :timeout
     = f.input :mark
+    
+    %hr
+    
+    / = f.input :answers, as: :answer
+    
+    %table{ style: 'width: 100%' }
+      %thead
+        %tr
+          %th Ответ
+          %th Правильный?
+      %tbody
+        - @question.answers.each do |answer|
+          = hidden_field_tag("question[answers][][id]", answer.id)
+          %tr
+            %td{ style: 'width: 80%; padding: 10px' }
+              = text_area_tag("question[answers][][content]", answer.content, class: 'form-control')
+            %td
+              = check_box_tag("question[answers][][correct]", 1, answer.correct)
 
   .form-actions
-    = f.button :submit
+    = link_to "Назад", :back, :class => 'btn btn-default'
+    = f.button :submit, :class => 'btn-success'

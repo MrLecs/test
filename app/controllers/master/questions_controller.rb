@@ -15,6 +15,9 @@ class Master::QuestionsController < MasterController
   # GET /questions/new
   def new
     @question = Question.new
+    
+    @question.testing_id = params['testing_id'].to_i if params['testing_id']
+    @question.answers = Array.new(5) { Answer.new }
   end
 
   # GET /questions/1/edit
@@ -24,7 +27,9 @@ class Master::QuestionsController < MasterController
   # POST /questions
   # POST /questions.json
   def create
+    params['question']['answers'] = AnswerBuilder.new(params).to_array
     @question = Question.new(question_params)
+    @question.answers = params['question']['answers']
 
     respond_to do |format|
       if @question.save
@@ -40,6 +45,8 @@ class Master::QuestionsController < MasterController
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
   def update
+    params['question']['answers'] = AnswerBuilder.new(params).to_array
+    
     respond_to do |format|
       if @question.update(question_params)
         format.html { redirect_to questions_master_testing_path(@question.testing), notice: 'Question was successfully updated.' }
@@ -56,7 +63,7 @@ class Master::QuestionsController < MasterController
   def destroy
     @question.destroy
     respond_to do |format|
-      format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
+      format.html { redirect_to questions_master_testing_path(@question.testing), notice: 'Question was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +76,6 @@ class Master::QuestionsController < MasterController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:testing_id, :content, :timeout, :mark)
+      params.require(:question).permit(:testing_id, :content, :timeout, :mark, answers: [])
     end
 end
