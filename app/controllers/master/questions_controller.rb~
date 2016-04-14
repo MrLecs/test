@@ -17,7 +17,7 @@ class Master::QuestionsController < MasterController
     @question = Question.new
     
     @question.testing_id = params['testing_id'].to_i if params['testing_id']
-    @question.answers = Array.new(8) { Answer.new }
+    @question.answers = Array.new(5) { Answer.new }
   end
 
   # GET /questions/1/edit
