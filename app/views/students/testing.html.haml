@@ -1,2 +1,25 @@
 .page-header
-  %h1 Тут будет список доступных тестов...
+  %h1= @testing.title
+  
+.row
+  .col-xs-12
+    %blockquote
+      %p
+        = @question.content
+
+    %form{ method: :get }
+      - @question.answers.each do |answer|
+        - if answer.content.to_s != ''
+          .checkbox
+            %label
+              %input{ type: :checkbox }
+              %p= answer.content
+      %button.btn.btn-success{ type: :submit } 
+        Следующий вопрос
+        %i.fa.fa-arrow-right
+  
+    %hr
+  
+    .progress.progress-striped.active
+      - p = ((@question_number - 1) * 100 / @number_of_questions).round
+      .progress-bar.progress-bar-success{ :style => "width: #{p}%"}

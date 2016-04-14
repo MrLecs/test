@@ -2,6 +2,7 @@
   %h1 Список тестов
 
 = link_to new_master_testing_path, class: 'btn btn-success btn-xs' do
+  %i.fa.fa-plus
   Добавить тест
 
 %table.table
@@ -9,6 +10,7 @@
     %tr
       %th Заголовок
       %th Описание
+      %th Время на выполнение
       %th
       %th
 
@@ -20,6 +22,8 @@
             = testing.title
         %td
           = testing.description
+        %td
+          = testing.timeout
         %td
           = link_to edit_master_testing_path(testing), class: 'btn btn-success btn-xs' do
             %i.fa.fa-pencil

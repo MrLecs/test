@@ -72,6 +72,6 @@ class Master::TestingsController < MasterController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def testing_params
-      params.require(:testing).permit(:title, :description)
+      params.require(:testing).permit(:title, :description, :timeout)
     end
 end

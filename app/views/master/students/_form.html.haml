@@ -2,11 +2,6 @@
   .col-xs-12
     = simple_form_for [:master, @student] do |f|
       .panel.panel-success
-        .panel-heading
-          - if @student.id
-            Редактирование студента
-          - else
-            Новый студент
         .panel-body
           - if @student.errors.any?
             #error_explanation

@@ -1,12 +1,27 @@
 ru:
   simple_form:
     labels:
+      student:
+        surname: Фамилия
+        name: Имя
+        patronymic: Отчество
+        group: Группа
+
       question:
         testing: 'Тест'
         content: 'Вопрос'
-        timeout: 'Время на ответ'
         mark: 'Оценка'
         answers: 'Ответы'
+
+      testing:
+        title: 'Название теста'
+        description: 'Описание'
+        timeout: 'Время на ответ'
+
+
+    hints:
+      testing:
+        timeout: 'В минутах'
   helpers:
     submit:
      create: "Создать"

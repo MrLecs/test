@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-  root to: 'students#testing'
+  root to: 'students#index'
+  get '/students/testing', to: 'students#testing', as: 'testing'
+  get '/students/finish', to: 'students#finish', as: 'finish'
 
   devise_for :students,
              :controllers => { :registrations => "devise/custom/registrations" }

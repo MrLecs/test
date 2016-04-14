@@ -1,0 +1,12 @@
+.page-header
+  %h1 Вам доступны тесты
+  
+.row
+  - @testings.each do |testing|
+    .col-xs-12
+      %h4= testing.title
+      %p= testing.description
+      = link_to testing_path(testing_id: testing.id), class: 'btn btn-success' do
+        Начать тестирование
+      %hr
+  
