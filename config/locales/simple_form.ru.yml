@@ -18,8 +18,8 @@ ru:
         description: 'Описание'
         timeout: 'Время на ответ'
 
-       group:
-         name: Номер группы
+      group:
+        name: Номер группы
 
     hints:
       testing:
