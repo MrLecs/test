@@ -20,7 +20,6 @@ ru:
 
        group:
          name: Номер группы
-
     hints:
       testing:
         timeout: 'В минутах'
