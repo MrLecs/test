@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Student:
+  = @history.student
+%p
+  %b Testings:
+  = @history.testings
+%p
+  %b Answer:
+  = @history.answer
+%p
+  %b Action:
+  = @history.action
+
+= link_to 'Edit', edit_history_path(@history)
+\|
+= link_to 'Back', histories_path

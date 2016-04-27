@@ -1,5 +1,6 @@
 class StudentsController < ApplicationController
   before_action :authenticate_student!
+  before_action :set_question, only: [:question, :answer]
   
   layout 'students'
   
@@ -7,24 +8,46 @@ class StudentsController < ApplicationController
     @testings = Testing.all
   end
   
-  def testing
-    if params[:testing_id].to_i != 0
-      cookies['tid'] = params[:testing_id].to_i
-    end    
+  def start
+    testing = Testing.find(params[:testing_id].to_i)
     
-    @testing = Testing.find(cookies['tid'].to_i)
-    @question_number = (cookies['qn'] || '1').to_i
-    @number_of_questions = @testing.questions.size
-    @question = @testing.questions[@question_number - 1]
+    cookies['tid'] = testing.id
+    cookies['title'] = testing.title
+    cookies['questions'] = testing.questions.map(&:id).shuffle.to_json
+    cookies['idx'] = 0
     
-    if @question_number > @number_of_questions
-      redirect_to finish_path
+    History.create(student: current_student, testing: testing, action: :start)
+    
+    redirect_to testing_path(:question)
+  end
+  
+  def question
+  end
+  
+  def answer
+    # Ответов может быть несколько! Надо перегенерить модель History
+    
+    if @idx + 1 < @questions.size
+      cookies['idx'] = @idx + 1
+      redirect_to testing_path(:question)
     else
-      cookies['qn'] = @question_number + 1
+      redirect_to testing_path(:finish)
     end
   end
   
   def finish
-    cookies['qn'] = nil
+    testing = Testing.find(cookies['tid'].to_i)
+    
+    History.create(student: current_student, testing: testing, action: :finish)
+    
+    cookies['tid'] = nil
+  end
+  
+  private
+  
+  def set_question
+    @idx = cookies['idx'].to_i
+    @questions = JSON.parse(cookies['questions'])
+    @question = Question.find(@questions[@idx])
   end
 end

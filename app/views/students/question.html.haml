@@ -1,0 +1,21 @@
+.page-header
+  %h1= cookies['title']
+  %span.label.label-default.pull-right
+    = "#{@idx} из #{@questions.size}"
+  
+.row
+  .col-xs-12
+    %blockquote
+      %p
+        = @question.content
+
+    %form{ method: :get, action: testing_path(:answer) }
+      - @question.answers.shuffle.each do |answer|
+        - if answer.content.to_s != ''
+          .checkbox
+            %label
+              %input{ type: :checkbox }
+              %p= answer.content
+
+      %button.btn.btn-success{ type: :submit } 
+        Ответить

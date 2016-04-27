@@ -4,7 +4,13 @@ class Master::StudentsController < MasterController
   # GET /students
   # GET /students.json
   def index
+    sp = student_params rescue {}
+    
     @students = Student.all.order(:surname, :name)
+    
+    if sp['group_id'].to_i > 0
+      @students = @students.where(group_id: sp['group_id'].to_i)
+    end
   end
 
   # GET /students/1
@@ -59,6 +65,22 @@ class Master::StudentsController < MasterController
       format.html { redirect_to master_students_path, notice: 'Student was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def generate_passwords
+    ids = params['ids'].split(",").map(&:to_i)
+    
+    result = [] 
+    
+    Student.where(id: ids).each do |student|
+      password = SecureRandom.hex(4)
+      student.password = password
+      student.save!
+      
+      result << "#{student.fio}\t#{student.email}\t#{password}"
+    end
+    
+    render plain: result.join("\n")
   end
 
   private

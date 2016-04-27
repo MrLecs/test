@@ -5,9 +5,28 @@
   %i.fa.fa-plus
   Добавить студента
 
+%hr
+
+.row
+  .col-xs-6
+    %form.form-inline{ method: :get }
+      .form-group
+        %label
+          = t("simple_form.labels.student.group") + ": "
+        = select('student', 'group_id', Group.all.collect { |group| [group.name, group.id] }, { include_blank: true }, { class: 'form-control'})
+  
+      %button.btn.btn-default{ type: :submit }
+        = t("show")
+        
+  .col-xs-6.text-right
+    %a.btn.btn-success{ href: '#', onclick: 'generate_passwords();' }
+      = t("students.genetare_passwords")
+    
+
 %table.table
   %thead
     %tr
+      %th
       %th Дата регистрации
       %th ФИО
       %th Группа
@@ -20,6 +39,9 @@
     - @students.each do |student|
       %tr
         %td
+          %input{ type: :checkbox, data: { id: student.id } }
+          
+        %td
           = l student.created_at, format: :long
         %td
           = student.surname
@@ -30,8 +52,15 @@
         %td
           = l student.last_sign_in_at, format: :long rescue '-'
 
-        %td= link_to 'Редактировать', edit_master_student_path(student), class: 'btn btn-success btn-xs'
-        %td= link_to 'Удалить', [:master, student], :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-primary btn-xs'
+        %td
+          = link_to edit_master_student_path(student), class: 'btn btn-success btn-xs' do
+            %i.fa.fa-edit
+            = t("edit")
+
+        %td
+          = link_to [:master, student], :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-xs' do
+            %i.fa.fa-trash
+            = t("delete")
 
 %br
 

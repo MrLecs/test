@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
 
   root to: 'students#index'
-  get '/students/testing', to: 'students#testing', as: 'testing'
-  get '/students/finish', to: 'students#finish', as: 'finish'
+  
+  # get '/students/start',   to: 'students#start',   as: 'start'
+  # get '/students/question', to: 'students#question', as: 'question'
+  # get '/students/finish',  to: 'students#finish',  as: 'finish'
+  
+  get '/students/:action', to: 'students', constraints: {
+    action: /start|question|answer|finish/
+    }, as: :testing
 
   devise_for :students,
              :controllers => { :registrations => "devise/custom/registrations" }
@@ -12,7 +18,13 @@ Rails.application.routes.draw do
     root to: 'groups#index'
     
     resources :groups
-    resources :students
+    
+    resources :students do
+      collection do
+        get 'generate_passwords'
+      end
+    end
+    
     resources :answers
     resources :questions
     resources :testings do
@@ -20,6 +32,8 @@ Rails.application.routes.draw do
         get 'questions'
       end
     end
+    
+    resources :histories
   end
   
 end

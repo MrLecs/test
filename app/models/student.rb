@@ -10,4 +10,8 @@ class Student < ActiveRecord::Base
   validates :surname, presence: true
   validates :patronymic, presence: true
   validates :group_id, presence: true
+  
+  def fio
+    "#{surname} #{name} #{patronymic}"
+  end
 end

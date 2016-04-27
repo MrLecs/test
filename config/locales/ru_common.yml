@@ -1,0 +1,7 @@
+ru:
+  show: Показать
+  edit: Редактировать
+  delete: Удалить
+  
+  students:
+    genetare_passwords: Сгенерировать пароли для выбранных студентов
