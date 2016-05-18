@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160427004248) do
+ActiveRecord::Schema.define(version: 20160518220022) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "question_id"
@@ -23,6 +23,11 @@ ActiveRecord::Schema.define(version: 20160427004248) do
 
   add_index "answers", ["question_id"], name: "index_answers_on_question_id"
 
+  create_table "answers_histories", force: :cascade do |t|
+    t.integer "answer_id"
+    t.integer "history_id"
+  end
+
   create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -30,17 +35,17 @@ ActiveRecord::Schema.define(version: 20160427004248) do
   end
 
   create_table "histories", force: :cascade do |t|
-    t.integer  "student_id"
-    t.integer  "testing_id"
     t.integer  "answer_id"
     t.string   "action"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "question_id"
+    t.integer  "test_suite_id"
   end
 
   add_index "histories", ["answer_id"], name: "index_histories_on_answer_id"
-  add_index "histories", ["student_id"], name: "index_histories_on_student_id"
-  add_index "histories", ["testing_id"], name: "index_histories_on_testing_id"
+  add_index "histories", ["question_id"], name: "index_histories_on_question_id"
+  add_index "histories", ["test_suite_id"], name: "index_histories_on_test_suite_id"
 
   create_table "questions", force: :cascade do |t|
     t.integer  "testing_id"
@@ -72,6 +77,19 @@ ActiveRecord::Schema.define(version: 20160427004248) do
 
   add_index "students", ["email"], name: "index_students_on_email", unique: true
   add_index "students", ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
+
+  create_table "test_suites", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "testing_id"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "result"
+  end
+
+  add_index "test_suites", ["student_id"], name: "index_test_suites_on_student_id"
+  add_index "test_suites", ["testing_id"], name: "index_test_suites_on_testing_id"
 
   create_table "testings", force: :cascade do |t|
     t.string   "title"

@@ -2,12 +2,12 @@ Rails.application.routes.draw do
 
   root to: 'students#index'
   
-  # get '/students/start',   to: 'students#start',   as: 'start'
+  # get '/students/start',    to: 'students#start',   as: 'start'
   # get '/students/question', to: 'students#question', as: 'question'
-  # get '/students/finish',  to: 'students#finish',  as: 'finish'
+  # get '/students/finish',   to: 'students#finish',  as: 'finish'
   
   get '/students/:action', to: 'students', constraints: {
-    action: /start|question|answer|finish/
+    action: /start|question|answer|skip_question|finish/
     }, as: :testing
 
   devise_for :students,
@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     end
     
     resources :histories
+    resources :test_suites
   end
   
 end

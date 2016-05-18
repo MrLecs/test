@@ -1,0 +1,37 @@
+.page-header
+  %h1
+    = @test_suite.student.fio + ", "
+    = @test_suite.testing.title
+
+%p#notice= notice
+
+%p
+  %b Начало теста:
+  = l @test_suite.started_at, format: :short
+  
+  &nbsp;
+  
+  %b Продолжительность:
+  = ((@test_suite.finished_at - @test_suite.started_at) / 1.minute).round
+  = " мин"
+
+
+- @test_suite.histories.order(:created_at).each do |history|
+  %p
+    = l(history.created_at, format: :short)
+    = action_label(history.action)
+    
+    - if ['answer', 'skip_question'].include?(history.action)
+      %blockquote
+        %p= history.question.content
+        
+      %form
+        - history.question.answers.each do |answer|
+          - if answer.content.to_s != ''
+            .checkbox
+              %label
+                %input{ type: :checkbox, disabled: true, checked: history.answers.include?(answer) }
+                %p{ class: "#{answer.correct? ? 'text-success' : 'text-danger'}" }
+                  = answer.content
+    
+  %hr

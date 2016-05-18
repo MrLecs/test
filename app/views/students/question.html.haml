@@ -14,8 +14,15 @@
         - if answer.content.to_s != ''
           .checkbox
             %label
-              %input{ type: :checkbox }
+              %input{ type: :checkbox, name: "answers[]", value: answer.id }
               %p= answer.content
 
       %button.btn.btn-success{ type: :submit } 
         Ответить
+
+
+      %a.btn.btn-danger.pull-right{ href: testing_path(:finish), :data => { :confirm => 'Are you sure?' } }
+        Завершить тест
+
+      %a.btn.btn-warning.pull-right{ href: testing_path(:skip_question), style: 'margin-right: 10px' }
+        Пропустить вопрос

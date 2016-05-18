@@ -1,0 +1,11 @@
+= simple_form_for(@test_suite) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :student
+    = f.association :testing
+    = f.input :started_at
+    = f.input :finished_at
+
+  .form-actions
+    = f.button :submit

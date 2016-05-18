@@ -5,3 +5,10 @@ ru:
   
   students:
     genetare_passwords: Сгенерировать пароли для выбранных студентов
+    
+    
+  test_suite:
+    start: Старт
+    answer: Дан ответ
+    skip_question: Пропуск вопроса
+    finish: Финиш

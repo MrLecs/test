@@ -5,3 +5,7 @@
 body {
   padding-top: 30px;
 }
+
+body, .btn, .navbar, h1  {
+  font-family: 'Avenir Next', Times, serif;
+}

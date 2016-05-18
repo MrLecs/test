@@ -1,0 +1,31 @@
+.page-header
+  %h1 Тестирования
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th
+        
+      %th
+        Студент
+      %th
+        Тест
+      %th
+        Правильных ответов
+      %th
+
+  %tbody
+    - @test_suites.each do |test_suite|
+      %tr
+        %td= l test_suite.started_at, format: :short
+        %td= test_suite.student.fio
+        %td= test_suite.testing.title
+        %td
+          = test_suite.result
+          из
+          = test_suite.testing.questions.size
+        
+        %td
+          = link_to [:master, test_suite], class: 'btn btn-success btn-xs' do
+            %i.fa.fa-eye
+            Просмотр

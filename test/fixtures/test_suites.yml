@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student_id: 
+  testing_id: 
+  started_at: 2016-05-18 00:33:54
+  finished_at: 2016-05-18 00:33:54
+
+two:
+  student_id: 
+  testing_id: 
+  started_at: 2016-05-18 00:33:54
+  finished_at: 2016-05-18 00:33:54

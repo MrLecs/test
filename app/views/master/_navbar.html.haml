@@ -9,10 +9,21 @@
     #navbar-main.navbar-collapse.collapse
       %ul.nav.navbar-nav
         %li{ class: controller_name == 'groups' ? 'active' : '' }
-          %a{ href: master_groups_path } Группы 
+          %a{ href: master_groups_path } 
+            %i.fa.fa-graduation-cap
+            Группы 
       
         %li{ class: controller_name == 'students' ? 'active' : '' }
-          %a{ href: master_students_path } Студенты
+          %a{ href: master_students_path } 
+            %i.fa.fa-users
+            Студенты
 
         %li{ class: controller_name == 'testings' ? 'active' : '' }
-          %a{ href: master_testings_path } Тесты
+          %a{ href: master_testings_path } 
+            %i.fa.fa-list
+            Тесты
+          
+        %li{ class: controller_name == 'test_suites' ? 'active' : '' }
+          %a{ href: master_test_suites_path } 
+            %i.fa.fa-pencil-square-o
+            Тестирования
