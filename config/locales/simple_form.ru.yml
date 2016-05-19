@@ -17,6 +17,8 @@ ru:
         title: 'Название теста'
         description: 'Описание'
         timeout: 'Время на ответ'
+        random_questions: Показывать вопросы в случайном порядке
+        random_answers: Показывать ответы в случайном порядке
 
       group:
         name: Номер группы

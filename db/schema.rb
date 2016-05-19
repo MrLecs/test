@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160518220022) do
+ActiveRecord::Schema.define(version: 20160519215544) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "question_id"
@@ -94,9 +94,11 @@ ActiveRecord::Schema.define(version: 20160518220022) do
   create_table "testings", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "timeout"
+    t.boolean  "random_questions", default: false
+    t.boolean  "random_answers",   default: false
   end
 
 end

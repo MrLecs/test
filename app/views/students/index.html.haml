@@ -5,7 +5,14 @@
   - @testings.each do |testing|
     .col-xs-12
       %h4= testing.title
-      %p= testing.description
+      
+      - if testing.description.size > 0
+        %blockquote
+          %p= testing.description
+      
+      %p
+        %b Ограничение по времени:
+        = "#{testing.timeout} минут"
       
       = link_to testing_path(:start, testing_id: testing.id), class: 'btn btn-success' do
         Начать тестирование

@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   before_action :authenticate_student!
   before_action :set_question, only: [:question, :answer, :skip_question]
-  before_action :set_testing,  only: [:answer, :finish, :skip_question]
+  before_action :set_testing,  only: [:question, :answer, :skip_question, :finish]
   
   layout 'students'
   
@@ -48,8 +48,8 @@ class StudentsController < ApplicationController
   end
 
   def set_testing
-    @testing    = Testing.find(cookies['tid'])
-    @test_suite = TestSuite.find(cookies['tsid'])
+    @testing    = Testing.find(cookies['tid']) rescue nil
+    @test_suite = TestSuite.find(cookies['tsid']) rescue nil
   end
 
   def next_question
@@ -72,12 +72,14 @@ class StudentsController < ApplicationController
     cookies['tid']       = @testing.id
     cookies['tsid']      = @test_suite.id
     cookies['title']     = @testing.title
-    cookies['questions'] = @testing.questions.map(&:id).shuffle.to_json
     cookies['idx']       = 0
+    
+    questions = @testing.questions.map(&:id)
+    questions.shuffle! if @testing.random_questions?
+    cookies['questions'] = questions.to_json
   end
 
   def clear_cookies
     cookies['tid']  = nil
-    cookies['tsid'] = nil
   end
 end
