@@ -25,13 +25,26 @@
       %blockquote
         %p= history.question.content
         
-      %form
+      - if !history.question.image.nil? && history.question.image.url != nil
+        .row
+          .col-xs-12.text-center
+            %img.img-thumbnail.img-responsive{ src: history.question.image.url }
+        
+      %table.table.table-bordered.table-striped.table-hover
         - history.question.answers.each do |answer|
-          - if answer.content.to_s != ''
-            .checkbox
-              %label
+          - if answer.content.to_s != '' || (!answer.image.nil? && answer.image.url != nil)
+            %tr
+              %td
                 %input{ type: :checkbox, disabled: true, checked: history.answers.include?(answer) }
+                
+              %td{ width: '95%' }
                 %p{ class: "#{answer.correct? ? 'text-success' : 'text-danger'}" }
                   = answer.content
+        
+                - if !answer.image.nil? && answer.image.url != nil
+                  .row
+                    .col-xs-6.text-center
+                      %img.img-thumbnail.img-responsive{ src: answer.image.url, style: "border-color: #{answer.correct? ? '#3fad46' : '#d9534f'}" }
+      
     
   %hr

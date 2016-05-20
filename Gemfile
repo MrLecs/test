@@ -51,3 +51,5 @@ gem 'simple_form'
 gem "rails-erd"
 
 gem 'devise'
+gem 'carrierwave'
+gem 'mini_magick'

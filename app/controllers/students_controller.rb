@@ -22,7 +22,7 @@ class StudentsController < ApplicationController
   end
   
   def answer
-    @test_suite.answer(question: @question, answers: Answer.find(params['answers']))
+    @test_suite.answer(question: @question, answers: Answer.find(params['answers'])) rescue nil
 
     next_question
   end

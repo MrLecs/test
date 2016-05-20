@@ -4,12 +4,17 @@
   .form-inputs
     = f.association :testing
     = f.input :content, input_html: { rows: 5 }
+
+
+    = f.input :image, as: :file
+    
+    - if @question.image
+      %img.img-thumbnail.img-responsive{ src: @question.image.url(:thumb) }
+    
     
     %hr
-    
-    / = f.input :answers, as: :answer
-    
-    %table{ style: 'width: 100%' }
+
+    %table.table.table-bordered.table-striped.table-hover{ style: 'width: 100%' }
       %thead
         %tr
           %th Ответ
@@ -20,6 +25,16 @@
           %tr
             %td{ style: 'width: 80%; padding: 10px' }
               = text_area_tag("question[answers][][content]", answer.content, class: 'form-control')
+              
+              %br
+              
+              = file_field_tag("question[answers][][image]")
+              - if !answer.image.nil? && answer.image.url != nil
+                %br
+                %img.img-thumbnail.img-responsive{ src: answer.image.url(:thumb) }
+                
+              
+              
             %td
               = check_box_tag("question[answers][][correct]", 1, answer.correct)
 

@@ -29,6 +29,6 @@ class AnswerBuilder
   private
   
   def permit_answer_params p
-    p.permit(:id, :content, :correct)
+    p.permit(:id, :content, :correct, :image)
   end
 end
