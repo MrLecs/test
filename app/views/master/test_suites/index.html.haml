@@ -1,31 +1,67 @@
 .page-header
   %h1 Тестирования
 
-%table.table.table-bordered
-  %thead
-    %tr
-      %th
-        
-      %th
-        Студент
-      %th
-        Тест
-      %th
-        Правильных ответов
-      %th
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-body
+        %form#form.form-inline{ method: :get }
 
-  %tbody
-    - @test_suites.each do |test_suite|
+          .form-group
+            %input.datepicker{ placeholder: 'Дата', name: 'test_suite[date]', value: params['test_suite'] ? params['test_suite']['date'] : '' }
+          
+          .form-group
+            = select('test_suite', 'group_id', Group.all.collect { |group| [ "Группа: " + group.name, group.id] }, { prompt: 'Группа', selected: params['test_suite'] ? params['test_suite']['group_id'] : '' }, { class: 'form-control' })
+
+          .form-group
+            = select('test_suite', 'testing_id', Testing.all.collect { |testing| [ "Тест: " + testing.title, testing.id] }, { prompt: 'Тест', selected: params['test_suite'] ? params['test_suite']['testing_id'] : '' }, { class: 'form-control' })
+
+          .pull-right
+            %button.btn.btn-success.btn-sm{ type: :submit }
+              %i.fa.fa-eye
+              Показать
+
+            %a.btn.btn-primary.btn-sm{ onclick: "$('#form').attr('action', document.location.pathname + '.pdf'); $('#form').attr('target', '_blank'); $('#form').submit();" }
+              %i.fa.fa-file-pdf-o
+              В виде pdf
+
+:javascript
+  $(function() {
+    $('.datepicker').datepicker({
+      format: 'yyyy-mm-dd', placeholder: 'Дата'
+    });
+  });
+
+- if @test_suites.nil?
+  %h4 Необходимо задать параметры для выборки
+- else
+  %table.table.table-bordered
+    %thead
       %tr
-        %td= l test_suite.started_at, format: :short
-        %td= test_suite.student.fio
-        %td= test_suite.testing.title
-        %td
-          = test_suite.result
-          из
-          = test_suite.testing.questions.size
-        
-        %td
-          = link_to [:master, test_suite], class: 'btn btn-success btn-xs' do
-            %i.fa.fa-eye
-            Просмотр
+        %th
+        %th
+          Группа
+        %th
+          Студент
+        %th
+          Тест
+        %th
+          Правильных ответов
+        %th
+
+    %tbody
+      - @test_suites.each do |test_suite|
+        %tr
+          %td= l test_suite.started_at, format: :short
+          %td= test_suite.student.group.name
+          %td= test_suite.student.fio
+          %td= test_suite.testing.title
+          %td
+            = test_suite.result
+            из
+            = test_suite.testing.questions.size
+
+          %td
+            = link_to [:master, test_suite], class: 'btn btn-success btn-xs' do
+              %i.fa.fa-eye
+              Просмотр

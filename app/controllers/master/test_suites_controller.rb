@@ -4,7 +4,26 @@ class Master::TestSuitesController < MasterController
   # GET /test_suites
   # GET /test_suites.json
   def index
-    @test_suites = TestSuite.all.order(created_at: :desc)
+    # @test_suites = TestSuite.all
+
+    @date    = parse_date
+    @group   = parse_group
+    @testing = parse_testing
+    
+    if @date && @group && @testing
+      @test_suites = TestSuite.all
+      @test_suites = @test_suites.where('started_at >= ? and started_at < ?', @date, @date + 1.day)
+      @test_suites = @test_suites.joins(:student).where(students: { group_id: @group.id })
+      @test_suites = @test_suites.where(testing: @testing)
+      @test_suites = @test_suites.order('students.surname, students.name, students.patronymic ')
+    end
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: 'index'
+      end
+    end
   end
 
   # GET /test_suites/1
@@ -70,5 +89,17 @@ class Master::TestSuitesController < MasterController
     # Never trust parameters from the scary internet, only allow the white list through.
     def test_suite_params
       params.require(:test_suite).permit(:student_id, :testing_id, :started_at, :finished_at)
+    end
+
+    def parse_date
+      Date.parse(params['test_suite']['date']) rescue nil
+    end
+
+    def parse_group
+      Group.find(params['test_suite']['group_id']) rescue nil
+    end
+    
+    def parse_testing
+      Testing.find(params['test_suite']['testing_id']) rescue nil
     end
 end

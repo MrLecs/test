@@ -1,0 +1,58 @@
+!!!
+%html
+  %head
+    %meta{ 'http-equiv' => 'Content-Type', content: 'text/html; charset=UTF-8' }
+  
+    :css
+      body {
+        font-family: Monospace;
+      }
+      
+      table {
+        border-collapse: collapse;
+      }
+      
+      th {
+        background-color: #ccc;
+      }
+      
+      th, td {
+        padding: 5px;
+        border: 1px solid black
+      }
+
+  %body
+    - if @test_suites.nil?
+      %h1 Необходимо задать параметры для выборки
+    - else
+      %h1 
+        Тест: 
+        = @testing.title
+      %p
+        %b Дата:
+        = @date.strftime("%d.%m.%Y")
+      
+        %b Группа:
+        = @group.name
+
+      %table{ cellspacing: 0 }
+        %thead
+          %tr
+            %th
+              Студент
+            %th
+              Тест
+            %th{ colspan: 2 }
+              Результат
+
+
+        %tbody
+          - @test_suites.each do |test_suite|
+            %tr
+              %td= test_suite.student.fio
+              %td= test_suite.testing.title
+              %td
+                = "#{test_suite.result}/#{test_suite.testing.questions.size}"
+              %td
+                = "#{((test_suite.result * 100.0) / test_suite.testing.questions.size).round(2)}%"
+              
