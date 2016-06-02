@@ -3,6 +3,8 @@
 
   .form-inputs
     = f.association :testing
+    = f.association :parent_question, collection: @question.testing.questions, label_method: 'short_content'
+    
     = f.input :content, input_html: { rows: 5 }
 
 

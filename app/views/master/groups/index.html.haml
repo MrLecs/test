@@ -1,9 +1,15 @@
 .page-header
   %h1 Список групп
 
-= link_to new_master_group_path, class: 'btn btn-xs btn-success' do
-  %i.fa.fa-plus
-  Добавить группу
+
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-body
+        .pull-right
+          = link_to new_master_group_path, class: 'btn btn-sm btn-success' do
+            %i.fa.fa-plus
+            Добавить группу
 
 %table.table
   %thead

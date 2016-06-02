@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160520214332) do
+ActiveRecord::Schema.define(version: 20160602204247) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "question_id"
@@ -51,11 +51,13 @@ ActiveRecord::Schema.define(version: 20160520214332) do
   create_table "questions", force: :cascade do |t|
     t.integer  "testing_id"
     t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.string   "image"
+    t.integer  "parent_question_id"
   end
 
+  add_index "questions", ["parent_question_id"], name: "index_questions_on_parent_question_id"
   add_index "questions", ["testing_id"], name: "index_questions_on_testing_id"
 
   create_table "students", force: :cascade do |t|

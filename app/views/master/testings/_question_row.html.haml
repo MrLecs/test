@@ -1,0 +1,22 @@
+%tr
+  %td.text-nowrap
+    - indent.times do
+      = ("&nbsp;" * 4).html_safe
+    = link_to edit_master_question_path(question) do
+      - if indent > 0
+        %i.fa.fa-reply.fa-rotate-180
+      = "Q #{@testing.id}.#{question.id}"
+      %i.fa.fa-pencil
+  %td
+    = question.content.truncate(50)
+  %td
+    = link_to master_question_path(question), class: 'btn btn-xs btn-warning', target: '_blank' do
+      %i.fa.fa-eye
+      Предпросмотр
+  %td
+    = link_to [:master, question], :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-xs' do
+      %i.fa.fa-trash
+      Удалить
+      
+- question.sub_questions.order(:id).each do |sub_question|
+  = render partial: 'question_row', locals: { question: sub_question, indent: indent + 1 }

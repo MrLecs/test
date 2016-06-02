@@ -1,26 +1,28 @@
 .page-header
   %h1 Список студентов
 
-= link_to new_master_student_path, class: 'btn btn-success btn-xs' do
-  %i.fa.fa-plus
-  Добавить студента
-
-%hr
-
 .row
-  .col-xs-6
-    %form.form-inline{ method: :get }
-      .form-group
-        %label
-          = t("simple_form.labels.student.group") + ": "
-        = select('student', 'group_id', Group.all.collect { |group| [group.name, group.id] }, { include_blank: true }, { class: 'form-control'})
+  .col-xs-12
+    .panel.panel-default
+      .panel-body
+      
+        %form.form-inline{ method: :get }
+          .form-group
+            %label
+              = t("simple_form.labels.student.group") + ": "
+            = select('student', 'group_id', Group.all.collect { |group| [group.name, group.id] }, { include_blank: true }, { class: 'form-control'})
   
-      %button.btn.btn-default{ type: :submit }
-        = t("show")
+          %button.btn.btn-default{ type: :submit }
+            = t("show")
         
-  .col-xs-6.text-right
-    %a.btn.btn-success{ href: '#', onclick: 'generate_passwords();' }
-      = t("students.genetare_passwords")
+          .pull-right
+            %a.btn.btn-success.btn-sm{ href: '#', onclick: 'generate_passwords();' }
+              %i.fa.fa-key
+              Сгенерировать пароли
+            
+            %a.btn.btn-success.btn-sm{ href: new_master_student_path }
+              %i.fa.fa-plus
+              Добавить студента
     
 
 %table.table

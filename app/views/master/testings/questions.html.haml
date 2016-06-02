@@ -3,15 +3,23 @@
     Вопросы к тесту: 
     = @testing.title
     
-= link_to master_testings_path, class: 'btn btn-default btn-xs' do
-  %i.fa.fa-arrow-left
-  К списку тестов
     
-= link_to new_master_question_path(testing_id: @testing.id), class: 'btn btn-xs btn-primary' do
-  %i.fa.fa-plus
-  Добавить вопрос
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-body
+        = link_to master_testings_path, class: 'btn btn-default btn-sm' do
+          %i.fa.fa-arrow-left
+          К списку тестов
+
+        .pull-right
+
     
-%table.table
+          = link_to new_master_question_path(testing_id: @testing.id), class: 'btn btn-sm btn-primary' do
+            %i.fa.fa-plus
+            Добавить вопрос
+    
+%table.table.table-striped.table-hover
   %thead
     %tr
       %th Вопрос
@@ -19,17 +27,5 @@
       %th
 
   %tbody
-    - @testing.questions.each do |question|
-      %tr
-        %td
-          = link_to edit_master_question_path(question) do
-            %i.fa.fa-pencil
-            = question.content
-        %td
-          = link_to master_question_path(question), class: 'btn btn-xs btn-warning', target: '_blank' do
-            %i.fa.fa-eye
-            Предпросмотр
-        %td
-          = link_to [:master, question], :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-xs' do
-            %i.fa.fa-trash
-            Удалить
+    - @testing.questions.where(parent_question_id: nil).order(:id).each do |question|
+      = render partial: 'question_row', locals: { question: question, indent: 0 }

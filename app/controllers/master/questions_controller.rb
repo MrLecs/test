@@ -76,6 +76,6 @@ class Master::QuestionsController < MasterController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:testing_id, :content, :timeout, :mark, :image, answers: [])
+      params.require(:question).permit(:testing_id, :content, :timeout, :mark, :image, :parent_question_id, answers: [])
     end
 end
