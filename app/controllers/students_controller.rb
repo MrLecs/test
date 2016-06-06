@@ -73,13 +73,23 @@ class StudentsController < ApplicationController
     cookies['tsid']      = @test_suite.id
     cookies['title']     = @testing.title
     cookies['idx']       = 0
-    
-    questions = @testing.questions.map(&:id)
-    questions.shuffle! if @testing.random_questions?
-    cookies['questions'] = questions.to_json
+    cookies['questions'] = questions_list().to_json
   end
 
   def clear_cookies
     cookies['tid']  = nil
+  end
+  
+  def questions_list
+    questions = @testing.questions.where(parent_question_id: nil).to_a
+    questions.shuffle! if @testing.random_questions?
+    
+    questions.each_with_index do |question, index|
+      question.sub_questions.each_with_index do |sub_question, sub_index|
+        questions.insert(index + sub_index + 1, sub_question)
+      end
+    end
+    
+    questions.map(&:id)
   end
 end
